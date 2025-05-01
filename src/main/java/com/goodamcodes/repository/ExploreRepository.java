@@ -1,6 +1,5 @@
 package com.goodamcodes.repository;
 
-import com.goodamcodes.model.Client;
 import com.goodamcodes.model.Explore;
 import org.springframework.data.jpa.repository.JpaRepository;
 

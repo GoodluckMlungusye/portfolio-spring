@@ -1,5 +1,6 @@
 package com.goodamcodes.dto;
-import lombok.*;
+
+import lombok.Data;
 
 @Data
 public class ClientDTO {

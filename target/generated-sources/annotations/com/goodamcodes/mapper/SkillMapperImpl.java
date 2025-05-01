@@ -1,57 +1,61 @@
 package com.goodamcodes.mapper;
 
-import com.goodamcodes.dto.Skill.SkillRequestDTO;
-import com.goodamcodes.dto.Skill.SkillResponseDTO;
+import com.goodamcodes.dto.SkillDTO;
 import com.goodamcodes.dto.SubSkillDTO;
 import com.goodamcodes.model.Skill;
 import com.goodamcodes.model.SubSkill;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-30T16:01:13+0300",
+    date = "2025-05-01T18:50:32+0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 23.0.1 (Oracle Corporation)"
 )
 @Component
 public class SkillMapperImpl implements SkillMapper {
 
+    @Autowired
+    private SubSkillMapper subSkillMapper;
+
     @Override
-    public Skill toSkill(SkillRequestDTO skillRequestDTO) {
-        if ( skillRequestDTO == null ) {
+    public Skill toSkill(SkillDTO skillDTO) {
+        if ( skillDTO == null ) {
             return null;
         }
 
         Skill.SkillBuilder skill = Skill.builder();
 
-        skill.name( skillRequestDTO.getName() );
+        skill.name( skillDTO.getName() );
+        skill.subSkillList( subSkillDTOListToSubSkillList( skillDTO.getSubSkillList() ) );
 
         return skill.build();
     }
 
     @Override
-    public SkillResponseDTO toSkillDTO(Skill skill) {
+    public SkillDTO toSkillDTO(Skill skill) {
         if ( skill == null ) {
             return null;
         }
 
-        SkillResponseDTO skillResponseDTO = new SkillResponseDTO();
+        SkillDTO skillDTO = new SkillDTO();
 
-        skillResponseDTO.setName( skill.getName() );
-        skillResponseDTO.setSubSkillList( subSkillListToSubSkillDTOList( skill.getSubSkillList() ) );
+        skillDTO.setName( skill.getName() );
+        skillDTO.setSubSkillList( subSkillMapper.toSubSkillDTOs( skill.getSubSkillList() ) );
 
-        return skillResponseDTO;
+        return skillDTO;
     }
 
     @Override
-    public List<SkillResponseDTO> toSkillDTOs(List<Skill> skills) {
+    public List<SkillDTO> toSkillDTOs(List<Skill> skills) {
         if ( skills == null ) {
             return null;
         }
 
-        List<SkillResponseDTO> list = new ArrayList<SkillResponseDTO>( skills.size() );
+        List<SkillDTO> list = new ArrayList<SkillDTO>( skills.size() );
         for ( Skill skill : skills ) {
             list.add( toSkillDTO( skill ) );
         }
@@ -60,50 +64,37 @@ public class SkillMapperImpl implements SkillMapper {
     }
 
     @Override
-    public void updateSkillFromDTO(SkillRequestDTO skillRequestDTO, Skill skill) {
-        if ( skillRequestDTO == null ) {
+    public void updateSkillFromDTO(SkillDTO skillDTO, Skill skill) {
+        if ( skillDTO == null ) {
             return;
         }
 
-        if ( skillRequestDTO.getName() != null ) {
-            skill.setName( skillRequestDTO.getName() );
+        if ( skillDTO.getName() != null ) {
+            skill.setName( skillDTO.getName() );
+        }
+        if ( skill.getSubSkillList() != null ) {
+            List<SubSkill> list = subSkillDTOListToSubSkillList( skillDTO.getSubSkillList() );
+            if ( list != null ) {
+                skill.getSubSkillList().clear();
+                skill.getSubSkillList().addAll( list );
+            }
+        }
+        else {
+            List<SubSkill> list = subSkillDTOListToSubSkillList( skillDTO.getSubSkillList() );
+            if ( list != null ) {
+                skill.setSubSkillList( list );
+            }
         }
     }
 
-    protected SkillRequestDTO skillToSkillRequestDTO(Skill skill) {
-        if ( skill == null ) {
-            return null;
-        }
-
-        SkillRequestDTO skillRequestDTO = new SkillRequestDTO();
-
-        skillRequestDTO.setName( skill.getName() );
-
-        return skillRequestDTO;
-    }
-
-    protected SubSkillDTO subSkillToSubSkillDTO(SubSkill subSkill) {
-        if ( subSkill == null ) {
-            return null;
-        }
-
-        SubSkillDTO subSkillDTO = new SubSkillDTO();
-
-        subSkillDTO.setName( subSkill.getName() );
-        subSkillDTO.setPercentageLevel( subSkill.getPercentageLevel() );
-        subSkillDTO.setSkill( skillToSkillRequestDTO( subSkill.getSkill() ) );
-
-        return subSkillDTO;
-    }
-
-    protected List<SubSkillDTO> subSkillListToSubSkillDTOList(List<SubSkill> list) {
+    protected List<SubSkill> subSkillDTOListToSubSkillList(List<SubSkillDTO> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<SubSkillDTO> list1 = new ArrayList<SubSkillDTO>( list.size() );
-        for ( SubSkill subSkill : list ) {
-            list1.add( subSkillToSubSkillDTO( subSkill ) );
+        List<SubSkill> list1 = new ArrayList<SubSkill>( list.size() );
+        for ( SubSkillDTO subSkillDTO : list ) {
+            list1.add( subSkillMapper.toSubSkill( subSkillDTO ) );
         }
 
         return list1;

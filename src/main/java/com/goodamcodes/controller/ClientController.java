@@ -1,7 +1,9 @@
 package com.goodamcodes.controller;
 
 import com.goodamcodes.dto.ClientDTO;
+import com.goodamcodes.model.Client;
 import com.goodamcodes.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

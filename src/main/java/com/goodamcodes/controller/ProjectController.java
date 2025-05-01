@@ -1,4 +1,5 @@
 package com.goodamcodes.controller;
+
 import com.goodamcodes.dto.ProjectDTO;
 import com.goodamcodes.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -26,7 +28,7 @@ public class ProjectController {
     }
 
     @PatchMapping(path = "/{projectId}")
-    public ResponseEntity<ProjectDTO> updateProject( @PathVariable("projectId") Long projectId, @RequestPart ProjectDTO projectDTO, @RequestPart("file") MultipartFile file){
+    public ResponseEntity<ProjectDTO> updateProject( @PathVariable("projectId") Long projectId, @RequestPart("project") ProjectDTO projectDTO, @RequestPart("file") MultipartFile file){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.updateProject(projectId, projectDTO, file));
     }
 

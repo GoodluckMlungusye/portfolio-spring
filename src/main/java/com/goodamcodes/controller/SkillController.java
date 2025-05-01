@@ -1,6 +1,5 @@
 package com.goodamcodes.controller;
-import com.goodamcodes.dto.Skill.SkillRequestDTO;
-import com.goodamcodes.dto.Skill.SkillResponseDTO;
+import com.goodamcodes.dto.SkillDTO;
 import com.goodamcodes.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,18 +15,18 @@ public class SkillController {
     private SkillService skillService;
 
     @PostMapping
-    public ResponseEntity<SkillResponseDTO> addSkill(@RequestBody SkillRequestDTO skillRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(skillService.addSkill(skillRequestDTO));
+    public ResponseEntity<SkillDTO> addSkill(@RequestBody SkillDTO skillDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(skillService.addSkill(skillDTO));
     }
 
     @GetMapping
-    public ResponseEntity<List<SkillResponseDTO>> getSkills(){
+    public ResponseEntity<List<SkillDTO>> getSkills(){
         return ResponseEntity.status(HttpStatus.OK).body(skillService.getSkills());
     }
 
     @PatchMapping(path = "/{skillId}")
-    public ResponseEntity<SkillResponseDTO> updateSkill(@PathVariable("skillId") Long skillId,  @RequestBody SkillRequestDTO skillRequestDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(skillService.updateSkill(skillId, skillRequestDTO));
+    public ResponseEntity<SkillDTO> updateSkill(@PathVariable("skillId") Long skillId,  @RequestBody SkillDTO skillDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(skillService.updateSkill(skillId, skillDTO));
     }
 
     @DeleteMapping(path = "/{skillId}")

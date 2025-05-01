@@ -3,10 +3,12 @@ package com.goodamcodes.service;
 import com.goodamcodes.dto.ProjectDTO;
 import com.goodamcodes.mapper.ProjectMapper;
 import com.goodamcodes.model.Project;
+import com.goodamcodes.model.ServiceOffered;
 import com.goodamcodes.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -61,10 +63,10 @@ public class ProjectService {
 
 
     public String deleteProject(Long projectId){
-        boolean isExisting = projectRepository.existsById(projectId);
-        if(!isExisting){
-            throw new IllegalStateException("Project does not exist");
-        }
+        Project project = projectRepository.findById(projectId).orElseThrow(
+                () -> new IllegalStateException("Project does not exist")
+        );
+        imageService.deleteImage(project.getImage());
         projectRepository.deleteById(projectId);
         return "Project with id: " + projectId + " has been deleted";
     }

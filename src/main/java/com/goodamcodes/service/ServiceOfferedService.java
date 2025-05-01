@@ -7,6 +7,7 @@ import com.goodamcodes.repository.ServiceOfferedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -62,10 +63,10 @@ public class ServiceOfferedService {
     }
 
     public String deleteServiceOffered(Long serviceOfferedId){
-        boolean isExisting = serviceOfferedRepository.existsById(serviceOfferedId);
-        if(!isExisting){
-            throw new IllegalStateException("Service does not exist");
-        }
+        ServiceOffered serviceOffered = serviceOfferedRepository.findById(serviceOfferedId).orElseThrow(
+                () -> new IllegalStateException("Service does not exist")
+        );
+        imageService.deleteImage(serviceOffered.getImage());
         serviceOfferedRepository.deleteById(serviceOfferedId);
         return "Product with id: " + serviceOfferedId + " has been deleted";
     }

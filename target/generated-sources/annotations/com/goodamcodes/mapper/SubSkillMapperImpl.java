@@ -1,8 +1,6 @@
 package com.goodamcodes.mapper;
 
-import com.goodamcodes.dto.Skill.SkillRequestDTO;
 import com.goodamcodes.dto.SubSkillDTO;
-import com.goodamcodes.model.Skill;
 import com.goodamcodes.model.SubSkill;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-30T16:01:13+0300",
+    date = "2025-05-01T18:50:32+0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 23.0.1 (Oracle Corporation)"
 )
 @Component
@@ -41,7 +39,6 @@ public class SubSkillMapperImpl implements SubSkillMapper {
 
         subSkillDTO.setName( subSkill.getName() );
         subSkillDTO.setPercentageLevel( subSkill.getPercentageLevel() );
-        subSkillDTO.setSkill( skillToSkillRequestDTO( subSkill.getSkill() ) );
 
         return subSkillDTO;
     }
@@ -70,33 +67,5 @@ public class SubSkillMapperImpl implements SubSkillMapper {
             subSkill.setName( subSkillDTO.getName() );
         }
         subSkill.setPercentageLevel( subSkillDTO.getPercentageLevel() );
-        if ( subSkillDTO.getSkill() != null ) {
-            if ( subSkill.getSkill() == null ) {
-                subSkill.setSkill( Skill.builder().build() );
-            }
-            skillRequestDTOToSkill( subSkillDTO.getSkill(), subSkill.getSkill() );
-        }
-    }
-
-    protected SkillRequestDTO skillToSkillRequestDTO(Skill skill) {
-        if ( skill == null ) {
-            return null;
-        }
-
-        SkillRequestDTO skillRequestDTO = new SkillRequestDTO();
-
-        skillRequestDTO.setName( skill.getName() );
-
-        return skillRequestDTO;
-    }
-
-    protected void skillRequestDTOToSkill(SkillRequestDTO skillRequestDTO, Skill mappingTarget) {
-        if ( skillRequestDTO == null ) {
-            return;
-        }
-
-        if ( skillRequestDTO.getName() != null ) {
-            mappingTarget.setName( skillRequestDTO.getName() );
-        }
     }
 }

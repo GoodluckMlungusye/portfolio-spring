@@ -1,7 +1,6 @@
 package com.goodamcodes.service;
 
-import com.goodamcodes.dto.Skill.SkillRequestDTO;
-import com.goodamcodes.dto.Skill.SkillResponseDTO;
+import com.goodamcodes.dto.SkillDTO;
 import com.goodamcodes.mapper.SkillMapper;
 import com.goodamcodes.model.Skill;
 import com.goodamcodes.repository.SkillRepository;
@@ -19,26 +18,26 @@ public class SkillService {
     @Autowired
     SkillMapper skillMapper;
 
-    public SkillResponseDTO addSkill(SkillRequestDTO skillRequestDTO) {
-        Optional<Skill> existingSkill = skillRepository.findByName(skillRequestDTO.getName());
+    public SkillDTO addSkill(SkillDTO skillDTO) {
+        Optional<Skill> existingSkill = skillRepository.findByName(skillDTO.getName());
         if(existingSkill.isPresent()){
             throw new IllegalStateException("Skill exists");
         }
-        Skill skill = skillMapper.toSkill(skillRequestDTO);
+        Skill skill = skillMapper.toSkill(skillDTO);
         Skill savedSkill = skillRepository.save(skill);
         return skillMapper.toSkillDTO(savedSkill);
     }
 
-    public List<SkillResponseDTO> getSkills(){
-        List<Skill> skills = skillRepository.findAll();
+    public List<SkillDTO> getSkills(){
+        List<Skill> skills = skillRepository.findAllWithSubSkills();
         return skillMapper.toSkillDTOs(skills);
     }
 
-    public SkillResponseDTO updateSkill(Long skillId, SkillRequestDTO skillRequestDTO){
+    public SkillDTO updateSkill(Long skillId, SkillDTO skillDTO){
         Skill existingSkill = skillRepository.findById(skillId).orElseThrow(
                 () -> new IllegalStateException("Skill does not exist")
         );
-        skillMapper.updateSkillFromDTO(skillRequestDTO, existingSkill);
+        skillMapper.updateSkillFromDTO(skillDTO, existingSkill);
         Skill updatedSkill = skillRepository.save(existingSkill);
         return skillMapper.toSkillDTO(updatedSkill);
     }

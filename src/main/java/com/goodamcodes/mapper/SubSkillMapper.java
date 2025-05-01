@@ -1,8 +1,6 @@
 package com.goodamcodes.mapper;
 
-import com.goodamcodes.dto.Skill.SkillResponseDTO;
 import com.goodamcodes.dto.SubSkillDTO;
-import com.goodamcodes.model.Skill;
 import com.goodamcodes.model.SubSkill;
 import org.mapstruct.*;
 

@@ -20,11 +20,10 @@ public class Client {
 
     private String name;
 
-    @Column(name = "phoneNumber", nullable = false, unique = true)
-    @Pattern(regexp = "^(\\+\\d{1,3}[- ]?)?\\d{10}$", message = "Invalid phone number")
+    @Column( unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     @Email(message = "Invalid email format")
     private String email;
 

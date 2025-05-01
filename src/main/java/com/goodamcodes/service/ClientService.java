@@ -30,6 +30,7 @@ public class ClientService {
         return clientMapper.toClientDTO(savedClient);
     }
 
+
     public List<ClientDTO> getClients(){
         List<Client> clients = clientRepository.findAll();
         return clientMapper.toClientDTOs(clients);

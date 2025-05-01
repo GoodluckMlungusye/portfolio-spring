@@ -4,6 +4,7 @@ import com.goodamcodes.mapper.SkillMapper;
 import com.goodamcodes.mapper.SubSkillMapper;
 import com.goodamcodes.model.Skill;
 import com.goodamcodes.model.SubSkill;
+import com.goodamcodes.repository.SkillRepository;
 import com.goodamcodes.repository.SubSkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class SubSkillService {
     private SubSkillRepository subSkillRepository;
 
     @Autowired
+    private SkillRepository skillRepository;
+
+    @Autowired
     private SubSkillMapper subSkillMapper;
 
     @Autowired
@@ -28,11 +32,12 @@ public class SubSkillService {
         if(existingSubSkill.isPresent()){
             throw new IllegalStateException("SubSkill exists");
         }
+
+        Skill skill = skillRepository.findById(subSkillDTO.getSkillId())
+                .orElseThrow(() -> new RuntimeException("Skill not found"));
+
         SubSkill subSkill = subSkillMapper.toSubSkill(subSkillDTO);
-        if(subSkillDTO.getSkill().getName() != null && !subSkillDTO.getSkill().getName().isEmpty()){
-            Skill addedSkill = skillMapper.toSkill(subSkillDTO.getSkill());
-            subSkill.setSkill(addedSkill);
-        }
+        subSkill.setSkill(skill);
         SubSkill savedSubSkill = subSkillRepository.save(subSkill);
         return subSkillMapper.toSubSkillDTO(savedSubSkill);
     }
@@ -48,13 +53,11 @@ public class SubSkillService {
         );
         subSkillMapper.updateSubSkillFromDTO(subSkillDTO, existingSubSkill);
 
-        if(subSkillDTO.getSkill().getName() != null && !subSkillDTO.getSkill().getName().isEmpty()){
-            if(existingSubSkill.getSkill().getName() == null){
-                Skill updatedSkill = skillMapper.toSkill(subSkillDTO.getSkill());
-                existingSubSkill.setSkill(updatedSkill);
-            }else{
-                subSkillMapper.updateSubSkillFromDTO(subSkillDTO, existingSubSkill);
-            }
+        if(subSkillDTO.getSkillId() != null && !subSkillDTO.getSkillId().equals(existingSubSkill.getSkill().getId())) {
+            Skill newSkill = skillRepository.findById(subSkillDTO.getSkillId()).orElseThrow(
+                    () -> new IllegalStateException("Skill does not exist")
+            );
+            existingSubSkill.setSkill(newSkill);
         }
 
         SubSkill updatedSubSkill = subSkillRepository.save(existingSubSkill);

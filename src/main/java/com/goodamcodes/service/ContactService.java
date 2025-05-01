@@ -44,13 +44,13 @@ public class ContactService {
         return contactMapper.toContactDTO(updatedContact);
     }
 
-     public String deleteContact(Long contactId){
+    public String deleteContact(Long contactId){
         boolean isExisting = contactRepository.existsById(contactId);
         if(!isExisting){
             throw new IllegalStateException("Contact does not exist");
         }
         contactRepository.deleteById(contactId);
-         return "Contact with id: " + contactId + " has been deleted";
-     }
+        return "Contact with id: " + contactId + " has been deleted";
+    }
 
 }
