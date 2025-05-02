@@ -1,6 +1,5 @@
 package com.goodamcodes.service;
 import com.goodamcodes.dto.SubSkillDTO;
-import com.goodamcodes.mapper.SkillMapper;
 import com.goodamcodes.mapper.SubSkillMapper;
 import com.goodamcodes.model.Skill;
 import com.goodamcodes.model.SubSkill;
@@ -24,9 +23,6 @@ public class SubSkillService {
     @Autowired
     private SubSkillMapper subSkillMapper;
 
-    @Autowired
-    private SkillMapper skillMapper;
-
     public SubSkillDTO addSubSkill(SubSkillDTO subSkillDTO){
         Optional<SubSkill> existingSubSkill = subSkillRepository.findByName(subSkillDTO.getName());
         if(existingSubSkill.isPresent()){
@@ -34,7 +30,7 @@ public class SubSkillService {
         }
 
         Skill skill = skillRepository.findById(subSkillDTO.getSkillId())
-                .orElseThrow(() -> new RuntimeException("Skill not found"));
+                .orElseThrow(() -> new IllegalStateException("Skill not found"));
 
         SubSkill subSkill = subSkillMapper.toSubSkill(subSkillDTO);
         subSkill.setSkill(skill);
