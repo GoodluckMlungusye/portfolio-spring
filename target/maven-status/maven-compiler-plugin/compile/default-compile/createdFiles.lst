@@ -1,9 +1,0 @@
-com/goodamcodes/PortfolioSpringApplication.class
-com/goodamcodes/mapper/ClientMapper.class
-com/goodamcodes/model/Client.class
-com/goodamcodes/model/Client$ClientBuilder.class
-com/goodamcodes/service/ClientService.class
-com/goodamcodes/repository/ClientRepository.class
-com/goodamcodes/mapper/ClientMapperImpl.class
-com/goodamcodes/controller/ClientController.class
-com/goodamcodes/dto/ClientDTO.class
