@@ -14,6 +14,7 @@ public interface SkillMapper {
     Skill toSkill(SkillDTO skillDTO);
     SkillDTO toSkillDTO(Skill skill);
     List<SkillDTO> toSkillDTOs(List<Skill> skills);
+    List<Skill> toSkills(List<SkillDTO> skillDTOS);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateSkillFromDTO(SkillDTO skillDTO, @MappingTarget Skill skill);

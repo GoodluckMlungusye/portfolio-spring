@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 @Service
 public class ImageService {
@@ -36,4 +37,15 @@ public class ImageService {
             throw new RuntimeException("Failed to delete image", e);
         }
     }
+
+    public String handleFilesUpload(List<MultipartFile> files, int index) {
+        if (files != null && files.size() > index) {
+            MultipartFile file = files.get(index);
+            if (file != null && !file.isEmpty()) {
+                return saveImage(file);
+            }
+        }
+        return null;
+    }
+
 }

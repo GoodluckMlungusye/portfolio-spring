@@ -19,6 +19,11 @@ public class SubSkillController {
         return ResponseEntity.status(HttpStatus.CREATED).body(subSkillService.addSubSkill(subSkillDTO));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<SubSkillDTO>> addAllSubSkills(@RequestBody List<SubSkillDTO> subSkillDTOS){
+        return ResponseEntity.status(HttpStatus.CREATED).body(subSkillService.addAllSubSkills(subSkillDTOS));
+    }
+
     @GetMapping
     public ResponseEntity<List<SubSkillDTO>> getSubSkills(){
         return ResponseEntity.status(HttpStatus.OK).body(subSkillService.getSubSkills());

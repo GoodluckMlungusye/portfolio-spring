@@ -21,6 +21,11 @@ public class ServiceOfferedController {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceOfferedService.addServiceOffered(serviceOfferedDTO, file));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<ServiceOfferedDTO>> addAllServicesOffered(@RequestPart("services") List<ServiceOfferedDTO> serviceOfferedDTOS,  @RequestParam("files") List<MultipartFile> files){
+        return ResponseEntity.status(HttpStatus.CREATED).body(serviceOfferedService.addAllServicesOffered(serviceOfferedDTOS, files));
+    }
+
     @GetMapping
     public ResponseEntity<List<ServiceOfferedDTO>> getServiceOfferedList(){
         return ResponseEntity.status(HttpStatus.OK).body(serviceOfferedService.getServiceOfferedList());

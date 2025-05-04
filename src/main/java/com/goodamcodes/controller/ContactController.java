@@ -21,6 +21,11 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.CREATED).body(contactService.addContact(contactDTO));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<ContactDTO>>  addAllContacts(@RequestBody List<ContactDTO> contactDTOs) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(contactService.addAllContacts(contactDTOs));
+    }
+
     @GetMapping
     public ResponseEntity<List<ContactDTO>> getContacts(){
         return ResponseEntity.status(HttpStatus.OK).body(contactService.getContacts());

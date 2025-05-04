@@ -19,6 +19,11 @@ public class SkillController {
         return ResponseEntity.status(HttpStatus.CREATED).body(skillService.addSkill(skillDTO));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<SkillDTO>> addAllSkills(@RequestBody List<SkillDTO> skillDTOS) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(skillService.addAllSkills(skillDTOS));
+    }
+
     @GetMapping
     public ResponseEntity<List<SkillDTO>> getSkills(){
         return ResponseEntity.status(HttpStatus.OK).body(skillService.getSkills());

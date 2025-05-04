@@ -20,6 +20,11 @@ public class NavigationLinkController {
         return ResponseEntity.status(HttpStatus.CREATED).body(navigationLinkService.addNavigationLink(navigationLinkDTO));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<NavigationLinkDTO>> addAllNavigationLinks(@RequestBody List<NavigationLinkDTO> navigationLinkDTOs){
+        return ResponseEntity.status(HttpStatus.CREATED).body(navigationLinkService.addAllNavigationLinks(navigationLinkDTOs));
+    }
+
     @GetMapping
     public ResponseEntity<List<NavigationLinkDTO>> getNavigationLinks(){
         return ResponseEntity.status(HttpStatus.OK).body(navigationLinkService.getNavigationLinks());

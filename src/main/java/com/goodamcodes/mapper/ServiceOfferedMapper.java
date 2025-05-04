@@ -12,6 +12,7 @@ public interface ServiceOfferedMapper {
     ServiceOffered toServiceOffered(ServiceOfferedDTO serviceOfferedDTO);
     ServiceOfferedDTO toServiceOfferedDTO(ServiceOffered serviceOffered);
     List<ServiceOfferedDTO> toServiceOfferedDTOs(List<ServiceOffered> serviceOffered);
+    List<ServiceOffered> toServicesOffered(List<ServiceOfferedDTO> serviceOfferedDTOS);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateServiceOfferedFromDTO(ServiceOfferedDTO serviceOfferedDTO, @MappingTarget ServiceOffered serviceOffered);

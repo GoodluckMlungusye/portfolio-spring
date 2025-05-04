@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class ExploreService {
@@ -38,6 +40,26 @@ public class ExploreService {
         Explore savedExplore = exploreRepository.save(explore);
         return exploreMapper.toExploreDTO(savedExplore);
     }
+
+    public List<ExploreDTO> addAllExplores(List<ExploreDTO> exploreDTOs, List<MultipartFile> files) {
+        List<Explore> explores = exploreMapper.toExplores(exploreDTOs);
+
+        List<Explore> newExplores = IntStream.range(0, explores.size())
+                .filter(i -> exploreRepository.findByDescription(exploreDTOs.get(i).getDescription()).isEmpty())
+                .mapToObj(i -> {
+                    Explore explore = explores.get(i);
+                    String fileName = imageService.handleFilesUpload(files, i);
+                    if (fileName != null) {
+                        explore.setImage(fileName);
+                    }
+                    return explore;
+                })
+                .collect(Collectors.toList());
+
+        List<Explore> savedExplores = exploreRepository.saveAll(newExplores);
+        return exploreMapper.toExploreDTOs(savedExplores);
+    }
+
 
     public List<ExploreDTO> getExploreList(){
         List<Explore> exploreList = exploreRepository.findAll();

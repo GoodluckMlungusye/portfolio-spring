@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ContactService {
@@ -27,6 +28,15 @@ public class ContactService {
         Contact contact = contactMapper.toContact(contactDTO);
         Contact savedContact = contactRepository.save(contact);
         return contactMapper.toContactDTO(savedContact);
+    }
+
+    public List<ContactDTO> addAllContacts(List<ContactDTO> contactDTOs){
+        List<Contact> contacts = contactMapper.toContacts(contactDTOs);
+        List<Contact> newContacts = contacts.stream()
+                .filter(contact -> contactRepository.findByMedium(contact.getMedium()).isEmpty())
+                .toList();
+        List<Contact> savedContacts = contactRepository.saveAll(newContacts);
+        return contactMapper.toContactDTOs(savedContacts);
     }
 
     public List<ContactDTO> getContacts(){

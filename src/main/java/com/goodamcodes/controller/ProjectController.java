@@ -22,6 +22,11 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.addProject(projectDTO,file));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<ProjectDTO>> addAllProjects(@RequestPart("projects") List<ProjectDTO>  projectDTOS, @RequestPart("files") List<MultipartFile> files){
+        return ResponseEntity.status(HttpStatus.CREATED).body(projectService.addAllProjects(projectDTOS,files));
+    }
+
     @GetMapping
     public ResponseEntity<List<ProjectDTO>> getProjects(){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjects());

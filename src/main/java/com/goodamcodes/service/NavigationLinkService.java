@@ -29,6 +29,17 @@ public class NavigationLinkService {
         return navigationLinkMapper.toNavigationLinkDTO(savedNavigationLink);
     }
 
+    public List<NavigationLinkDTO> addAllNavigationLinks(List<NavigationLinkDTO> navigationLinkDTOs) {
+        List<NavigationLink> navigationLinks = navigationLinkMapper.toNavigationLinks(navigationLinkDTOs);
+
+        List<NavigationLink> newNavigationLinks = navigationLinks.stream()
+                .filter(link -> navigationLinkRepository.findByName(link.getName()).isEmpty())
+                .toList();
+
+        List<NavigationLink> savedLinks = navigationLinkRepository.saveAll(newNavigationLinks);
+        return navigationLinkMapper.toNavigationLinkDTOs(savedLinks);
+    }
+
     public List<NavigationLinkDTO> getNavigationLinks(){
         List<NavigationLink> navigationLinks = navigationLinkRepository.findAll();
         return navigationLinkMapper.toNavigationLinkDTOs(navigationLinks);

@@ -13,6 +13,7 @@ public interface SubSkillMapper {
     SubSkill toSubSkill(SubSkillDTO subSkillDTO);
     SubSkillDTO toSubSkillDTO(SubSkill subSkill);
     List<SubSkillDTO> toSubSkillDTOs(List<SubSkill> subSkills);
+    List<SubSkill> toSubSkills(List<SubSkillDTO> skillDTOS);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateSubSkillFromDTO(SubSkillDTO subSkillDTO, @MappingTarget SubSkill subSkill);

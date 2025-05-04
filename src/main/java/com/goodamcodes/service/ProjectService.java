@@ -3,7 +3,6 @@ package com.goodamcodes.service;
 import com.goodamcodes.dto.ProjectDTO;
 import com.goodamcodes.mapper.ProjectMapper;
 import com.goodamcodes.model.Project;
-import com.goodamcodes.model.ServiceOffered;
 import com.goodamcodes.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class ProjectService {
@@ -38,6 +39,26 @@ public class ProjectService {
         Project savedProject =  projectRepository.save(project);
         return projectMapper.toProjectDTO(savedProject);
     }
+
+    public List<ProjectDTO> addAllProjects(List<ProjectDTO> projectDTOs, List<MultipartFile> files) {
+        List<Project> projects = projectMapper.toProjects(projectDTOs);
+
+        List<Project> newProjects = IntStream.range(0, projects.size())
+                .filter(i -> projectRepository.findByName(projectDTOs.get(i).getName()).isEmpty())
+                .mapToObj(i -> {
+                    Project project = projects.get(i);
+                    String fileName = imageService.handleFilesUpload(files, i);
+                    if (fileName != null) {
+                        project.setImage(fileName);
+                    }
+                    return project;
+                })
+                .collect(Collectors.toList());
+
+        List<Project> savedProjects = projectRepository.saveAll(newProjects);
+        return projectMapper.toProjectDTOs(savedProjects);
+    }
+
 
     public List<ProjectDTO> getProjects(){
         List<Project> projects = projectRepository.findAll();

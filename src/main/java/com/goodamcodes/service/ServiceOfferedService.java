@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class ServiceOfferedService {
@@ -38,6 +40,25 @@ public class ServiceOfferedService {
 
         ServiceOffered savedServiceOffered = serviceOfferedRepository.save(serviceOffered);
         return serviceOfferedMapper.toServiceOfferedDTO(savedServiceOffered);
+    }
+
+    public List<ServiceOfferedDTO> addAllServicesOffered(List<ServiceOfferedDTO> serviceDTOs, List<MultipartFile> files) {
+        List<ServiceOffered> services = serviceOfferedMapper.toServicesOffered(serviceDTOs);
+
+        List<ServiceOffered> newServices = IntStream.range(0, services.size())
+                .filter(i -> serviceOfferedRepository.findByName(serviceDTOs.get(i).getName()).isEmpty())
+                .mapToObj(i -> {
+                    ServiceOffered service = services.get(i);
+                    String fileName = imageService.handleFilesUpload(files, i);
+                    if (fileName != null) {
+                        service.setImage(fileName);
+                    }
+                    return service;
+                })
+                .collect(Collectors.toList());
+
+        List<ServiceOffered> savedServices = serviceOfferedRepository.saveAll(newServices);
+        return serviceOfferedMapper.toServiceOfferedDTOs(savedServices);
     }
 
     public List<ServiceOfferedDTO> getServiceOfferedList(){

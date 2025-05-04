@@ -15,6 +15,7 @@ public interface NavigationLinkMapper {
     NavigationLink toNavigationLink(NavigationLinkDTO navigationLinkDTO);
     NavigationLinkDTO toNavigationLinkDTO(NavigationLink navigationLink);
     List<NavigationLinkDTO> toNavigationLinkDTOs(List<NavigationLink> navigationLinks);
+    List<NavigationLink> toNavigationLinks(List<NavigationLinkDTO> navigationLinkDTOS);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateNavigationLinkFromDTO(NavigationLinkDTO navigationLinkDTO, @MappingTarget NavigationLink navigationLink);

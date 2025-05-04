@@ -21,6 +21,11 @@ public class ExploreController {
         return ResponseEntity.status(HttpStatus.CREATED).body(exploreService.addExplore(exploreDTO, file));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<ExploreDTO>> addAllExplores(@RequestPart("explores") List<ExploreDTO> exploreDTOs, @RequestPart("files") List<MultipartFile> files){
+        return ResponseEntity.status(HttpStatus.CREATED).body(exploreService.addAllExplores(exploreDTOs, files));
+    }
+
     @GetMapping
     public ResponseEntity<List<ExploreDTO>> getExploreList(){
         return ResponseEntity.status(HttpStatus.OK).body(exploreService.getExploreList());

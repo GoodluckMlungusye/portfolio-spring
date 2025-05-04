@@ -15,6 +15,7 @@ public interface ContactMapper {
     Contact toContact(ContactDTO contactDTO);
     ContactDTO toContactDTO(Contact contact);
     List<ContactDTO> toContactDTOs(List<Contact> contacts);
+    List<Contact> toContacts(List<ContactDTO> contactDTOS);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateContactFromDTO(ContactDTO contactDTO, @MappingTarget Contact contact);

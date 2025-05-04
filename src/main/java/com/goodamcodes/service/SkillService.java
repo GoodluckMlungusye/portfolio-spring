@@ -28,6 +28,18 @@ public class SkillService {
         return skillMapper.toSkillDTO(savedSkill);
     }
 
+    public List<SkillDTO> addAllSkills(List<SkillDTO> skillDTOs) {
+        List<Skill> skills = skillMapper.toSkills(skillDTOs);
+
+        List<Skill> newSkills = skills.stream()
+                .filter(skill -> skillRepository.findByName(skill.getName()).isEmpty())
+                .toList();
+
+        List<Skill> savedSkills = skillRepository.saveAll(newSkills);
+        return skillMapper.toSkillDTOs(savedSkills);
+    }
+
+
     public List<SkillDTO> getSkills(){
         List<Skill> skills = skillRepository.findAllWithSubSkills();
         return skillMapper.toSkillDTOs(skills);

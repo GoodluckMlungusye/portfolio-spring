@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class SubSkillService {
@@ -37,6 +40,32 @@ public class SubSkillService {
         SubSkill savedSubSkill = subSkillRepository.save(subSkill);
         return subSkillMapper.toSubSkillDTO(savedSubSkill);
     }
+
+    public List<SubSkillDTO> addAllSubSkills(List<SubSkillDTO> subSkillDTOs) {
+        List<SubSkill> subSkills = subSkillMapper.toSubSkills(subSkillDTOs);
+
+        Map<Long, Skill> skillMap = skillRepository.findAllById(
+                subSkillDTOs.stream().map(SubSkillDTO::getSkillId).collect(Collectors.toSet())
+        ).stream().collect(Collectors.toMap(Skill::getId, skill -> skill));
+
+        List<SubSkill> newSubSkills = IntStream.range(0, subSkills.size())
+                .filter(i -> subSkillRepository.findByName(subSkillDTOs.get(i).getName()).isEmpty())
+                .mapToObj(i -> {
+                    SubSkill subSkill = subSkills.get(i);
+                    Long skillId = subSkillDTOs.get(i).getSkillId();
+                    Skill skill = skillMap.get(skillId);
+                    if (skill == null) {
+                        throw new IllegalStateException("Skill with ID " + skillId + " not found");
+                    }
+                    subSkill.setSkill(skill);
+                    return subSkill;
+                })
+                .collect(Collectors.toList());
+
+        List<SubSkill> savedSubSkills = subSkillRepository.saveAll(newSubSkills);
+        return subSkillMapper.toSubSkillDTOs(savedSubSkills);
+    }
+
 
     public List<SubSkillDTO> getSubSkills(){
         List<SubSkill> subSkills = subSkillRepository.findAll();
