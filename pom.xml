@@ -98,6 +98,7 @@
 			</plugin>
 
 		</plugins>
+		<finalName>portfolio</finalName>
 	</build>
 
 </project>
