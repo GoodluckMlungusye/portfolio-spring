@@ -11,6 +11,7 @@ public interface SubSkillMapper {
 
     @Mapping(target = "skill", ignore = true)
     SubSkill toSubSkill(SubSkillDTO subSkillDTO);
+    @Mapping(target = "skillId", source = "skill.id")
     SubSkillDTO toSubSkillDTO(SubSkill subSkill);
     List<SubSkillDTO> toSubSkillDTOs(List<SubSkill> subSkills);
     List<SubSkill> toSubSkills(List<SubSkillDTO> skillDTOS);

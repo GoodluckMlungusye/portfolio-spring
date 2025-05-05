@@ -8,6 +8,5 @@ public class SubSkillDTO {
 
     private String name;
     private int percentageLevel;
-    @JsonIgnore
     private Long skillId;
 }
