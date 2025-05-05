@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class SubSkillDTO {
 
+    private Long id;
     private String name;
     private int percentageLevel;
     private Long skillId;
