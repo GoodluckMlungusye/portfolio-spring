@@ -1,7 +1,7 @@
 package com.goodamcodes.controller;
 import com.goodamcodes.dto.ExploreDTO;
 import com.goodamcodes.service.ExploreService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/explore")
+@RequiredArgsConstructor
 public class ExploreController {
 
-    @Autowired
-    private ExploreService exploreService;
+    private final ExploreService exploreService;
 
     @PostMapping
     public ResponseEntity<ExploreDTO> addExplore(@RequestPart("explore") ExploreDTO exploreDTO, @RequestPart("file") MultipartFile file){

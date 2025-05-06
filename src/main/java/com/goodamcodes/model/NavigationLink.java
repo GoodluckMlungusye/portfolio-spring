@@ -2,13 +2,14 @@ package com.goodamcodes.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@ToString
 @Entity
 @Table
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class NavigationLink {
 
     @Id

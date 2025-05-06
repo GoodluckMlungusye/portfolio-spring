@@ -1,7 +1,7 @@
 package com.goodamcodes.controller;
 import com.goodamcodes.dto.SubSkillDTO;
 import com.goodamcodes.service.SubSkillService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/subskills")
+@RequiredArgsConstructor
 public class SubSkillController {
-    @Autowired
-    private SubSkillService subSkillService;
+
+    private final SubSkillService subSkillService;
 
     @PostMapping
     public ResponseEntity<SubSkillDTO> addSubSkill(@RequestBody SubSkillDTO subSkillDTO){

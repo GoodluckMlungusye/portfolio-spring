@@ -3,9 +3,8 @@ package com.goodamcodes.service;
 import com.goodamcodes.dto.ExploreDTO;
 import com.goodamcodes.mapper.ExploreMapper;
 import com.goodamcodes.model.Explore;
-import com.goodamcodes.model.ServiceOffered;
 import com.goodamcodes.repository.ExploreRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,16 +14,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
+@RequiredArgsConstructor
 public class ExploreService {
 
-    @Autowired
-    private ExploreRepository exploreRepository;
-
-    @Autowired
-    private ImageService imageService;
-
-    @Autowired
-    ExploreMapper exploreMapper;
+    private final ExploreRepository exploreRepository;
+    private final ImageService imageService;
+    private final ExploreMapper exploreMapper;
 
     public ExploreDTO addExplore(ExploreDTO exploreDTO, MultipartFile file) {
         Optional<Explore> existingExplore = exploreRepository.findByDescription(exploreDTO.getDescription());

@@ -9,13 +9,14 @@ import lombok.*;
 import java.util.Date;
 
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@ToString
 @Entity
 @Table
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

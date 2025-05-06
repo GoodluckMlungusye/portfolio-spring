@@ -4,20 +4,18 @@ import com.goodamcodes.dto.NavigationLinkDTO;
 import com.goodamcodes.mapper.NavigationLinkMapper;
 import com.goodamcodes.model.NavigationLink;
 import com.goodamcodes.repository.NavigationLinkRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class NavigationLinkService {
 
-    @Autowired
-    private NavigationLinkRepository navigationLinkRepository;
-
-    @Autowired
-    NavigationLinkMapper navigationLinkMapper;
+    private final NavigationLinkRepository navigationLinkRepository;
+    private final NavigationLinkMapper navigationLinkMapper;
 
     public NavigationLinkDTO addNavigationLink(NavigationLinkDTO navigationLinkDTO){
         Optional<NavigationLink> existingNavigationLink = navigationLinkRepository.findByName(navigationLinkDTO.getName());

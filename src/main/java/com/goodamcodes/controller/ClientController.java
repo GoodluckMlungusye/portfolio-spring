@@ -1,10 +1,8 @@
 package com.goodamcodes.controller;
 
 import com.goodamcodes.dto.ClientDTO;
-import com.goodamcodes.model.Client;
 import com.goodamcodes.service.ClientService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
+@RequiredArgsConstructor
 public class ClientController {
 
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
 
     @PostMapping
     public ResponseEntity<ClientDTO> addClient(@RequestBody ClientDTO clientDTO) {

@@ -4,19 +4,18 @@ import com.goodamcodes.dto.SkillDTO;
 import com.goodamcodes.mapper.SkillMapper;
 import com.goodamcodes.model.Skill;
 import com.goodamcodes.repository.SkillRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class SkillService {
-    @Autowired
-    private SkillRepository skillRepository;
 
-    @Autowired
-    SkillMapper skillMapper;
+    private final SkillRepository skillRepository;
+    private final SkillMapper skillMapper;
 
     public SkillDTO addSkill(SkillDTO skillDTO) {
         Optional<Skill> existingSkill = skillRepository.findByName(skillDTO.getName());

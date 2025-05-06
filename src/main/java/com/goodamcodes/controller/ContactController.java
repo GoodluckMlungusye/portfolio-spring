@@ -2,7 +2,7 @@ package com.goodamcodes.controller;
 
 import com.goodamcodes.dto.ContactDTO;
 import com.goodamcodes.service.ContactService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contacts")
+@RequiredArgsConstructor
 public class ContactController {
 
-    @Autowired
-    private ContactService contactService;
+    private final ContactService contactService;
 
     @PostMapping
     public ResponseEntity<ContactDTO>  addContact(@RequestBody ContactDTO contactDTO) {

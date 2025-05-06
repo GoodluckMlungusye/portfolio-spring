@@ -3,13 +3,14 @@ package com.goodamcodes.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 @Entity
 @Table
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

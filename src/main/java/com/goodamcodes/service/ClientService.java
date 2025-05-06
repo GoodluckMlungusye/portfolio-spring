@@ -4,20 +4,18 @@ import com.goodamcodes.dto.ClientDTO;
 import com.goodamcodes.mapper.ClientMapper;
 import com.goodamcodes.model.Client;
 import com.goodamcodes.repository.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService {
 
-    @Autowired
-    private ClientRepository clientRepository;
-
-    @Autowired
-    private ClientMapper clientMapper;
+    private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;
 
     public ClientDTO addClient(ClientDTO clientDTO){
         Optional<Client> existingClient = clientRepository.findByEmail(clientDTO.getEmail());

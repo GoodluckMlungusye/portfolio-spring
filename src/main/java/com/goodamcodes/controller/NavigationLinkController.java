@@ -1,7 +1,7 @@
 package com.goodamcodes.controller;
 import com.goodamcodes.dto.NavigationLinkDTO;
 import com.goodamcodes.service.NavigationLinkService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/links")
+@RequiredArgsConstructor
 public class NavigationLinkController {
 
-    @Autowired
-    private NavigationLinkService navigationLinkService;
+    private final NavigationLinkService navigationLinkService;
 
     @PostMapping
     public ResponseEntity<NavigationLinkDTO> addNavigationLink(@RequestBody NavigationLinkDTO navigationLinkDTO){

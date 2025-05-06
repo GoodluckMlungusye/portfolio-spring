@@ -5,7 +5,7 @@ import com.goodamcodes.model.Skill;
 import com.goodamcodes.model.SubSkill;
 import com.goodamcodes.repository.SkillRepository;
 import com.goodamcodes.repository.SubSkillRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,16 +15,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
+@RequiredArgsConstructor
 public class SubSkillService {
 
-    @Autowired
-    private SubSkillRepository subSkillRepository;
-
-    @Autowired
-    private SkillRepository skillRepository;
-
-    @Autowired
-    private SubSkillMapper subSkillMapper;
+    private final SubSkillRepository subSkillRepository;
+    private final SkillRepository skillRepository;
+    private final SubSkillMapper subSkillMapper;
 
     public SubSkillDTO addSubSkill(SubSkillDTO subSkillDTO){
         Optional<SubSkill> existingSubSkill = subSkillRepository.findByName(subSkillDTO.getName());

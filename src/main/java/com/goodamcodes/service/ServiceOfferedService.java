@@ -4,7 +4,7 @@ import com.goodamcodes.dto.ServiceOfferedDTO;
 import com.goodamcodes.mapper.ServiceOfferedMapper;
 import com.goodamcodes.model.ServiceOffered;
 import com.goodamcodes.repository.ServiceOfferedRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,16 +14,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
+@RequiredArgsConstructor
 public class ServiceOfferedService {
 
-    @Autowired
-    private ServiceOfferedRepository serviceOfferedRepository;
-
-    @Autowired
-    private ImageService imageService;
-
-    @Autowired
-    private ServiceOfferedMapper serviceOfferedMapper;
+    private final ServiceOfferedRepository serviceOfferedRepository;
+    private final ImageService imageService;
+    private final ServiceOfferedMapper serviceOfferedMapper;
 
     public ServiceOfferedDTO addServiceOffered(ServiceOfferedDTO serviceOfferedDTO, MultipartFile file){
         Optional<ServiceOffered> existingServiceOffered = serviceOfferedRepository.findByName(serviceOfferedDTO.getName());

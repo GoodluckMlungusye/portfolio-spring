@@ -2,7 +2,7 @@ package com.goodamcodes.controller;
 
 import com.goodamcodes.dto.ProjectDTO;
 import com.goodamcodes.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
+@RequiredArgsConstructor
 public class ProjectController {
 
-    @Autowired
-    private ProjectService projectService;
+    private final ProjectService projectService;
 
     @PostMapping
     public ResponseEntity<ProjectDTO> addProject(@RequestPart("project") ProjectDTO  projectDTO, @RequestPart("file") MultipartFile file){

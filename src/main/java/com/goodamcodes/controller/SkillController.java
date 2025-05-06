@@ -1,7 +1,7 @@
 package com.goodamcodes.controller;
 import com.goodamcodes.dto.SkillDTO;
 import com.goodamcodes.service.SkillService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/skills")
+@RequiredArgsConstructor
 public class SkillController {
-    @Autowired
-    private SkillService skillService;
+
+    private final SkillService skillService;
 
     @PostMapping
     public ResponseEntity<SkillDTO> addSkill(@RequestBody SkillDTO skillDTO) {

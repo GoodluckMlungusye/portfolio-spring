@@ -1,7 +1,7 @@
 package com.goodamcodes.controller;
 import com.goodamcodes.dto.ServiceOfferedDTO;
 import com.goodamcodes.service.ServiceOfferedService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/services")
+@RequiredArgsConstructor
 public class ServiceOfferedController {
 
-    @Autowired
-    private ServiceOfferedService serviceOfferedService;
+    private final ServiceOfferedService serviceOfferedService;
 
     @PostMapping
     public ResponseEntity<ServiceOfferedDTO> addServiceOffered(@RequestPart("service") ServiceOfferedDTO serviceOfferedDTO,  @RequestParam("file") MultipartFile file){

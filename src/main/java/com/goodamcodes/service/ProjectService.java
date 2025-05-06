@@ -4,7 +4,7 @@ import com.goodamcodes.dto.ProjectDTO;
 import com.goodamcodes.mapper.ProjectMapper;
 import com.goodamcodes.model.Project;
 import com.goodamcodes.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,16 +14,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
+@RequiredArgsConstructor
 public class ProjectService {
 
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private ImageService imageService;
-
-    @Autowired
-    private ProjectMapper projectMapper;
+    private final ProjectRepository projectRepository;
+    private final ImageService imageService;
+    private final ProjectMapper projectMapper;
 
     public ProjectDTO addProject(ProjectDTO projectDTO, MultipartFile file){
         Optional<Project> existingProject = projectRepository.findByName(projectDTO.getName());
