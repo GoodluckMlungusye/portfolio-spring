@@ -1,26 +1,25 @@
 services:
   db:
-    ports:
-      - "5432:5432"
-    container_name: postgresql_container
     image: postgres
+    container_name: postgres-portfolio
+    ports:
+      - "5454:5432"
     environment:
-      - POSTGRES_DB=db_name
-      - POSTGRES_PASSWORD=db_password
+      - POSTGRES_DB=app-db-name
+      - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
     volumes:
-      - /your-folder-path:/var/lib/postgresql/data
+      - ./postgres-portfolio:/var/lib/postgresql/data
     restart: always
 
-  backend:
+  portfolio:
     build: .
-    container_name: backend_container
+    container_name: portfolio
+    image: app/portfolio:latest
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/db_name
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=db_password
+      - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - db
     command: ["./wait-for-it.sh", "db:5432", "--", "java", "-jar", "portfolio.jar"]
