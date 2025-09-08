@@ -35,7 +35,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build JAR
-        run: mvn clean package -DskipTests
+        run: ./mvnw clean package -DskipTests
 
   docker:
     runs-on: ubuntu-latest
