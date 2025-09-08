@@ -5,6 +5,7 @@ LIVE DEPLOYMENT (GIT ACTIONS WITH AWS EC2 INSTANCE)
 
 A. GIT ACTIONS YML
 
+```
 name: Portfolio CI/CD with Docker to EC2
 
 on:
@@ -49,9 +50,10 @@ jobs:
             docker-compose pull portfolio
             docker-compose up -d
             docker image prune -f
+```
 
 B. EC2 DOCKER COMPOSE YML (Within EC2 make directory porfolio)
-
+```
 version: '3.8'
 
 services:
@@ -95,6 +97,7 @@ volumes:
 networks:
   app-network:
     driver: bridge
+```
 
 
             
