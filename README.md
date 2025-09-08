@@ -1,6 +1,4 @@
-DESCRIPTION
-
-Spring boot project to manage portfolio data
+DESCRIPTION: Spring boot project to manage portfolio data
 
 LIVE DEPLOYMENT (GIT ACTIONS WITH AWS EC2 INSTANCE)
 
