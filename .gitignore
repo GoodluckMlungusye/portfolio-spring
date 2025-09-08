@@ -1,53 +1,33 @@
-# =========================
-# Spring Boot / Maven
-# =========================
-
-# Maven target folders
+HELP.md
 target/
-!**/target/
-# Maven Wrapper - include all necessary files
-!.mvn/wrapper/
 !.mvn/wrapper/maven-wrapper.jar
-!.mvn/wrapper/maven-wrapper.properties
-mvnw
-mvnw.cmd
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Gradle build folders (if any)
-build/
-!**/build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-# =========================
-# IDE Files
-# =========================
-
-# STS
+### STS ###
 .apt_generated
 .classpath
 .factorypath
-.project
+.projectz
 .settings
 .springBeans
 .sts4-cache
 
-# IntelliJ IDEA
+### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 
-# NetBeans
+### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# VS Code
+### VS Code ###
 .vscode/
-
-# =========================
-# Other
-# =========================
-HELP.md
