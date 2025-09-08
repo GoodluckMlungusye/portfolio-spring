@@ -1,4 +1,5 @@
 DESCRIPTION
+
 Spring boot project to manage portfolio data
 
 LIVE DEPLOYMENT (GIT ACTIONS WITH AWS EC2 INSTANCE)
@@ -53,6 +54,7 @@ jobs:
 ```
 
 B. EC2 DOCKER COMPOSE YML (Within EC2 make directory porfolio)
+
 ```
 version: '3.8'
 
