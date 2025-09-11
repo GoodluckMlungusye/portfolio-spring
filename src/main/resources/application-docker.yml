@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/portfolio-db
+    url: jdbc:postgresql://db:5432/portfolio
     username: postgres
     password: db4lif3
     driver-class-name: org.postgresql.Driver
