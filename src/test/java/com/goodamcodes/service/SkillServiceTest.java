@@ -106,7 +106,7 @@ class SkillServiceTest {
             List<SkillDTO> result = skillService.getSkills();
 
             assertEquals(1, result.size());
-            assertEquals("Java", result.getFirst().getName());
+            assertEquals("Java", result.get(0).getName());
         }
     }
 

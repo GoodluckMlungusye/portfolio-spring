@@ -106,7 +106,7 @@ class NavigationLinkServiceTest {
             List<NavigationLinkDTO> result = navigationLinkService.getNavigationLinks();
 
             assertEquals(1, result.size());
-            assertEquals("Home", result.getFirst().getName());
+            assertEquals("Home", result.get(0).getName());
         }
     }
 
