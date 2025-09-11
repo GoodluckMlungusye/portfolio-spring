@@ -1,6 +1,6 @@
 services:
   portfolio:
-    image: yourdockerhubusername/portfolio:latest
+    image: goodluckdaniel/portfolio:latest
     container_name: portfolio_app
     depends_on:
       - db
