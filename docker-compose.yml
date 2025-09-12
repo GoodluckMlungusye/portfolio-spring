@@ -3,11 +3,11 @@ services:
     image: postgres
     container_name: portfolio_db
     ports:
-      - "5454:5432"
+      - "${DB_PORT}:5432"
     environment:
-      - POSTGRES_DB=portfolio
-      - POSTGRES_PASSWORD=db4lif3
-      - POSTGRES_USER=postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - ./postgres-portfolio:/var/lib/postgresql/data
     restart: always
@@ -16,11 +16,18 @@ services:
     build: .
     container_name: portfolio_app
     ports:
-      - "8080:8080"
+      - "${APP_PORT}:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE: ${MAX_FILE_SIZE}
+      SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE: ${MAX_REQUEST_SIZE}
+      IMAGE_PATH: ${IMAGE_PATH}
+    volumes:
+      - ./uploads:/portfolio_spring_app/${IMAGE_PATH}
     depends_on:
       - db
     command: ["./wait-for-it.sh", "db:5432", "--", "java", "-jar", "portfolio.jar"]
     restart: always
-
